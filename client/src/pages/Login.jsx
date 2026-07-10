@@ -24,7 +24,7 @@ const Login = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-sm space-y-4 rounded-2xl border border-slate-200 bg-white/90 p-8 shadow-xl backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/90"
       >
-        <h1 className="text-2xl font-semibold text-primary">SyncSpace Login</h1>
+        <h1 className="text-2xl font-semibold text-primary">TeamSync Login</h1>
         <input
           type="email"
           placeholder="Email"
