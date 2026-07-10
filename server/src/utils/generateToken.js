@@ -8,11 +8,14 @@ const generateToken = (userId) => {
 
 const sendTokenCookie = (res, token) => {
   const cookieExpiresDays = Number(process.env.JWT_COOKIE_EXPIRES_IN) || 7;
+
   res.cookie("token", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    expires: new Date(Date.now() + cookieExpiresDays * 24 * 60 * 60 * 1000),
+    secure: true,
+    sameSite: "none",
+    expires: new Date(
+      Date.now() + cookieExpiresDays * 24 * 60 * 60 * 1000
+    ),
   });
 };
 
