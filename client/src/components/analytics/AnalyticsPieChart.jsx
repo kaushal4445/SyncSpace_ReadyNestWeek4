@@ -41,9 +41,16 @@ const AnalyticsPieChart = ({ data, dataKey, nameKey, height = 260 }) => (
         ))}
       </Pie>
 
-      <Tooltip formatter={(value) => formatStorage(value)} />
+      <Tooltip
+        formatter={(value) => formatStorage(value)}
+        contentStyle={{
+          backgroundColor: "#0f172a",
+          borderColor: "#334155",
+          color: "#f8fafc",
+        }}
+      />
 
-      <Legend wrapperStyle={{ fontSize: 11 }} />
+      <Legend wrapperStyle={{ fontSize: 11, color: "#64748b" }} />
     </PieChart>
   </ResponsiveContainer>
 );

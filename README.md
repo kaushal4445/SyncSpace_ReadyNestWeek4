@@ -71,7 +71,21 @@ TeamSync lets teams create workspaces, invite members, co-author documents, chat
 
 ---
 
-## 4. Tech Stack
+## 4. UI/UX Improvements
+
+The latest release brings a more polished and accessible experience across the app:
+
+- Full light/dark theme support across dashboard pages, forms, cards, modals, tables, dropdowns, chat, calendar, analytics, and editor surfaces.
+- Improved text contrast and theme-aware colors for better readability in both modes.
+- Responsive mobile layout optimizations for phones, tablets, and desktops.
+- Collapsible mobile sidebar with overlay navigation and smoother interactions.
+- Touch-friendly controls and spacing for buttons, forms, chat input, and calendar actions.
+- Better responsive behavior for documents, analytics charts, search, notifications, and workspace selectors.
+- Refined editor and chart styling so rich text editing and analytics remain clear and usable in dark mode.
+
+---
+
+## 5. Tech Stack
 
 ### Frontend
 

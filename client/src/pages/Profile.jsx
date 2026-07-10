@@ -52,7 +52,9 @@ const Profile = () => {
     formData.append("avatar", file);
 
     try {
-      await api.put("/auth/avatar", formData, { headers: { "Content-Type": "multipart/form-data" } });
+      await api.put("/auth/avatar", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       toast.success("Avatar updated");
     } catch (error) {
       toast.error(error.response?.data?.message || "Avatar upload failed");
@@ -60,62 +62,98 @@ const Profile = () => {
   };
 
   return (
-    <div className="p-6 max-w-2xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold">Profile</h1>
+    <div className="mx-auto max-w-2xl space-y-6 p-4 sm:p-6">
+      <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
+        Profile
+      </h1>
 
-      <div className="bg-white dark:bg-slate-800 rounded-xl shadow p-6 flex items-center gap-4">
+      <div className="surface-card flex flex-col gap-4 p-6 sm:flex-row sm:items-center">
         <div className="relative">
           <img
-            src={avatarPreview || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || "U")}`}
+            src={
+              avatarPreview ||
+              `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || "U")}`
+            }
             alt="avatar"
             className="h-20 w-20 rounded-full object-cover"
           />
           <label className="absolute bottom-0 right-0 bg-primary text-white rounded-full p-1.5 cursor-pointer">
             <FiCamera size={14} />
-            <input type="file" accept="image/*" hidden onChange={handleAvatarChange} />
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleAvatarChange}
+            />
           </label>
         </div>
         <div>
-          <p className="font-semibold">{user?.name}</p>
-          <p className="text-sm text-secondary">{user?.email}</p>
-          <p className="text-xs text-secondary capitalize mt-1">Role: {user?.role}</p>
+          <p className="font-semibold text-slate-900 dark:text-white">
+            {user?.name}
+          </p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            {user?.email}
+          </p>
+          <p className="mt-1 text-xs capitalize text-slate-500 dark:text-slate-400">
+            Role: {user?.role}
+          </p>
         </div>
       </div>
 
-      <form onSubmit={handleProfileSave} className="bg-white dark:bg-slate-800 rounded-xl shadow p-6 space-y-3">
-        <p className="text-sm font-semibold">Account Information</p>
-        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Full Name" className="w-full border rounded-lg px-3 py-2 text-sm" />
-        <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full border rounded-lg px-3 py-2 text-sm" />
+      <form onSubmit={handleProfileSave} className="surface-card space-y-3 p-6">
+        <p className="text-sm font-semibold text-slate-900 dark:text-white">
+          Account Information
+        </p>
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Full Name"
+          className="input-field"
+        />
+        <input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          className="input-field"
+        />
         <Button type="submit" disabled={savingProfile}>
           {savingProfile ? "Saving..." : "Save Changes"}
         </Button>
       </form>
 
-      <form onSubmit={handlePasswordChange} className="bg-white dark:bg-slate-800 rounded-xl shadow p-6 space-y-3">
-        <p className="text-sm font-semibold">Change Password</p>
+      <form
+        onSubmit={handlePasswordChange}
+        className="surface-card space-y-3 p-6"
+      >
+        <p className="text-sm font-semibold text-slate-900 dark:text-white">
+          Change Password
+        </p>
         <input
           type="password"
           value={currentPassword}
           onChange={(e) => setCurrentPassword(e.target.value)}
           placeholder="Current Password"
-          className="w-full border rounded-lg px-3 py-2 text-sm"
+          className="input-field"
         />
         <input
           type="password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           placeholder="New Password"
-          className="w-full border rounded-lg px-3 py-2 text-sm"
+          className="input-field"
         />
         <Button type="submit" disabled={savingPassword} variant="secondary">
           {savingPassword ? "Updating..." : "Update Password"}
         </Button>
       </form>
 
-      <div className="bg-white dark:bg-slate-800 rounded-xl shadow p-6">
-        <p className="text-sm font-semibold mb-2">Activity Timeline</p>
-        <p className="text-xs text-secondary">
-          Detailed activity history (logins, edits, uploads) will appear here once the activity-log endpoint is added.
+      <div className="surface-card p-6">
+        <p className="mb-2 text-sm font-semibold text-slate-900 dark:text-white">
+          Activity Timeline
+        </p>
+        <p className="text-xs text-slate-500 dark:text-slate-400">
+          Detailed activity history (logins, edits, uploads) will appear here
+          once the activity-log endpoint is added.
         </p>
       </div>
     </div>

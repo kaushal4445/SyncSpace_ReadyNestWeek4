@@ -10,7 +10,10 @@ import CalendarStats from "../components/calendar/CalendarStats.jsx";
 import ScheduleMeetingModal from "../components/calendar/ScheduleMeetingModal.jsx";
 import Button from "../components/ui/Button.jsx";
 import EmptyState from "../components/ui/EmptyState.jsx";
-import { calendarService, meetingService } from "../services/calendarService.js";
+import {
+  calendarService,
+  meetingService,
+} from "../services/calendarService.js";
 import { useWorkspace } from "../context/WorkspaceContext.jsx";
 
 const Calendar = () => {
@@ -25,7 +28,14 @@ const Calendar = () => {
   const fetchEvents = useCallback(async () => {
     if (!currentWorkspace) return;
     const from = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-    const to = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0, 23, 59, 59);
+    const to = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      0,
+      23,
+      59,
+      59,
+    );
 
     try {
       const { data } = await calendarService.getEvents(currentWorkspace._id, {
@@ -40,7 +50,10 @@ const Calendar = () => {
 
   const fetchSidebarData = useCallback(async () => {
     try {
-      const [todayRes, upcomingRes] = await Promise.all([calendarService.getToday(), meetingService.getUpcoming()]);
+      const [todayRes, upcomingRes] = await Promise.all([
+        calendarService.getToday(),
+        meetingService.getUpcoming(),
+      ]);
       setTodayEvents(todayRes.data.events);
       setUpcomingMeetings(upcomingRes.data.meetings);
     } catch (error) {
@@ -57,23 +70,38 @@ const Calendar = () => {
   }, [fetchSidebarData]);
 
   const changeMonth = (delta) => {
-    setCurrentDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + delta, 1));
+    setCurrentDate(
+      (prev) => new Date(prev.getFullYear(), prev.getMonth() + delta, 1),
+    );
   };
 
   if (!currentWorkspace) {
-    return <EmptyState title="No workspace selected" description="Select a workspace to view its calendar." />;
+    return (
+      <EmptyState
+        title="No workspace selected"
+        description="Select a workspace to view its calendar."
+      />
+    );
   }
 
   return (
-    <div className="p-6 space-y-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Calendar</h1>
-        <Button onClick={() => setModalOpen(true)} className="flex items-center gap-2">
+    <div className="space-y-4 p-4 sm:p-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
+          Calendar
+        </h1>
+        <Button
+          onClick={() => setModalOpen(true)}
+          className="flex items-center justify-center gap-2"
+        >
           <FiPlus /> Schedule
         </Button>
       </div>
 
-      <CalendarStats totalEvents={events.length} totalMeetings={upcomingMeetings.length} />
+      <CalendarStats
+        totalEvents={events.length}
+        totalMeetings={upcomingMeetings.length}
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         <div className="lg:col-span-3 space-y-4">
@@ -86,11 +114,19 @@ const Calendar = () => {
             onToday={() => setCurrentDate(new Date())}
           />
           {/* Week/day views can reuse CalendarGrid with a narrower date range — month view shown by default */}
-          <CalendarGrid currentDate={currentDate} events={events} onDayClick={() => setModalOpen(true)} />
+          <CalendarGrid
+            currentDate={currentDate}
+            events={events}
+            onDayClick={() => setModalOpen(true)}
+          />
         </div>
 
         <div className="space-y-4">
-          <MiniCalendar value={currentDate} onChange={setCurrentDate} markedDates={events.map((e) => e.startTime)} />
+          <MiniCalendar
+            value={currentDate}
+            onChange={setCurrentDate}
+            markedDates={events.map((e) => e.startTime)}
+          />
           <TodayTasks events={todayEvents} />
           <UpcomingMeetings meetings={upcomingMeetings} />
         </div>

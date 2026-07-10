@@ -16,7 +16,7 @@ const Settings = () => {
       meetingReminders: true,
       profileVisibility: "workspace_only",
       twoFactorEnabled: false,
-    }
+    },
   );
 
   // Apply dark mode to <html> so Tailwind's `dark:` classes take effect app-wide
@@ -35,15 +35,21 @@ const Settings = () => {
   };
 
   const Section = ({ title, children }) => (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow p-6">
-      <p className="text-sm font-semibold mb-1">{title}</p>
-      <div className="divide-y divide-slate-100 dark:divide-slate-700">{children}</div>
+    <div className="surface-card p-5 sm:p-6">
+      <p className="mb-1 text-sm font-semibold text-slate-900 dark:text-white">
+        {title}
+      </p>
+      <div className="divide-y divide-slate-100 dark:divide-slate-700">
+        {children}
+      </div>
     </div>
   );
 
   return (
-    <div className="p-6 max-w-2xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold">Settings</h1>
+    <div className="mx-auto max-w-2xl space-y-6 p-4 sm:p-6">
+      <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
+        Settings
+      </h1>
 
       <Section title="Appearance">
         <ToggleSwitch
@@ -80,8 +86,10 @@ const Settings = () => {
           <p className="text-sm font-medium mb-2">Profile Visibility</p>
           <select
             value={prefs.profileVisibility}
-            onChange={(e) => persist({ ...prefs, profileVisibility: e.target.value })}
-            className="w-full border rounded-lg px-3 py-2 text-sm"
+            onChange={(e) =>
+              persist({ ...prefs, profileVisibility: e.target.value })
+            }
+            className="input-field"
           >
             <option value="public">Public</option>
             <option value="workspace_only">Workspace members only</option>
@@ -102,8 +110,9 @@ const Settings = () => {
       {currentWorkspace && (
         <Section title="Workspace Preferences">
           <p className="text-xs text-secondary py-2">
-            Managing <strong>{currentWorkspace.name}</strong>'s settings (public access, invite permissions) is available
-            to workspace admins from the Workspace settings modal.
+            Managing <strong>{currentWorkspace.name}</strong>'s settings (public
+            access, invite permissions) is available to workspace admins from
+            the Workspace settings modal.
           </p>
         </Section>
       )}

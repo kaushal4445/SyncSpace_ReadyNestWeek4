@@ -76,11 +76,11 @@ const NotificationDropdown = () => {
     <div className="relative">
       <button
         onClick={() => setIsOpen((o) => !o)}
-        className="relative text-secondary hover:text-slate-900 dark:hover:text-white"
+        className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
       >
-        <FiBell size={20} />
+        <FiBell size={18} />
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center">
+          <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-semibold text-white">
             {unreadCount > 9 ? "9+" : unreadCount}
           </span>
         )}
@@ -92,7 +92,7 @@ const NotificationDropdown = () => {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="absolute right-0 mt-3 w-80 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 z-50"
+            className="absolute right-0 z-50 mt-3 w-[min(90vw,20rem)] rounded-xl border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-800"
           >
             <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-700">
               <span className="font-semibold text-sm">Notifications</span>

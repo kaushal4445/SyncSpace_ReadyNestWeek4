@@ -55,8 +55,8 @@ const RichTextEditor = ({
   };
 
   return (
-    <div className="border rounded-xl overflow-hidden bg-white dark:bg-slate-800">
-      <div className="flex items-center gap-1 border-b border-slate-100 dark:border-slate-700 px-2 py-1">
+    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
+      <div className="flex flex-wrap items-center gap-1 border-b border-slate-200 px-2 py-1 dark:border-slate-700">
         <ToolbarButton
           icon={<FiBold />}
           label="Bold"
@@ -98,7 +98,7 @@ const RichTextEditor = ({
         }}
         onClick={() => onCursorChange?.({ x: 0, y: 0, offset: 0 })}
         data-placeholder={placeholder}
-        className="relative min-h-[300px] p-4 text-sm outline-none max-w-none leading-relaxed empty:before:content-[attr(data-placeholder)] empty:before:text-secondary"
+        className="relative min-h-[300px] p-4 text-sm leading-relaxed text-slate-800 outline-none max-w-none empty:before:content-[attr(data-placeholder)] empty:before:text-slate-400 dark:text-slate-100 dark:empty:before:text-slate-500"
       >
         {remoteCursors.map((cursor) => (
           <div

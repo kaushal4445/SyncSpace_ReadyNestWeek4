@@ -27,9 +27,12 @@ const Documents = () => {
     if (!currentWorkspace) return;
     setLoading(true);
     try {
-      const { data } = await documentService.getByWorkspace(currentWorkspace._id, {
-        search: debouncedSearch || undefined,
-      });
+      const { data } = await documentService.getByWorkspace(
+        currentWorkspace._id,
+        {
+          search: debouncedSearch || undefined,
+        },
+      );
       setDocuments(data.documents);
     } catch (error) {
       toast.error("Failed to load documents");
@@ -46,7 +49,10 @@ const Documents = () => {
   const handleCreate = async () => {
     if (!currentWorkspace) return;
     try {
-      const { data } = await documentService.create({ title: "Untitled Document", workspace: currentWorkspace._id });
+      const { data } = await documentService.create({
+        title: "Untitled Document",
+        workspace: currentWorkspace._id,
+      });
       navigate(`/documents/${data.document._id}`);
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to create document");
@@ -54,24 +60,34 @@ const Documents = () => {
   };
 
   if (!currentWorkspace) {
-    return <EmptyState title="No workspace selected" description="Create or select a workspace to see its documents." />;
+    return (
+      <EmptyState
+        title="No workspace selected"
+        description="Create or select a workspace to see its documents."
+      />
+    );
   }
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold">Documents</h1>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-700 rounded-lg px-3 py-2">
-            <FiSearch className="text-secondary" />
+    <div className="space-y-6 p-4 sm:p-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
+          Documents
+        </h1>
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white/80 px-3 py-2 shadow-sm dark:border-slate-700 dark:bg-slate-800/80">
+            <FiSearch className="text-slate-500 dark:text-slate-400" />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search documents..."
-              className="bg-transparent outline-none text-sm"
+              className="w-full bg-transparent text-sm outline-none"
             />
           </div>
-          <Button onClick={handleCreate} className="flex items-center gap-2">
+          <Button
+            onClick={handleCreate}
+            className="flex items-center justify-center gap-2"
+          >
             <FiPlus /> New Document
           </Button>
         </div>
@@ -90,7 +106,10 @@ const Documents = () => {
           action={<Button onClick={handleCreate}>Create Document</Button>}
         />
       ) : (
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <motion.div
+          layout
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
           {documents.map((doc) => (
             <DocumentCard
               key={doc._id}
@@ -107,7 +126,11 @@ const Documents = () => {
         document={shareTarget}
         isOpen={!!shareTarget}
         onClose={() => setShareTarget(null)}
-        onUpdated={(updated) => setDocuments((prev) => prev.map((d) => (d._id === updated._id ? updated : d)))}
+        onUpdated={(updated) =>
+          setDocuments((prev) =>
+            prev.map((d) => (d._id === updated._id ? updated : d)),
+          )
+        }
       />
       <VersionHistoryModal
         document={historyTarget}

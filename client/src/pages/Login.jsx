@@ -19,29 +19,35 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-8 dark:bg-slate-950">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white dark:bg-slate-800 shadow-xl rounded-xl p-8 w-full max-w-sm space-y-4"
+        className="w-full max-w-sm space-y-4 rounded-2xl border border-slate-200 bg-white/90 p-8 shadow-xl backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/90"
       >
-        <h1 className="text-2xl font-bold text-primary">SyncSpace Login</h1>
+        <h1 className="text-2xl font-semibold text-primary">SyncSpace Login</h1>
         <input
           type="email"
           placeholder="Email"
-          className="w-full border rounded-lg px-3 py-2"
+          className="input-field"
           {...register("email", { required: true })}
         />
         <input
           type="password"
           placeholder="Password"
-          className="w-full border rounded-lg px-3 py-2"
+          className="input-field"
           {...register("password", { required: true })}
         />
-        <button type="submit" className="w-full bg-primary text-white rounded-lg py-2 hover:bg-primary-dark">
+        <button
+          type="submit"
+          className="w-full rounded-lg bg-primary py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-dark"
+        >
           Log In
         </button>
-        <p className="text-sm text-center">
-          No account? <Link to="/register" className="text-primary">Register</Link>
+        <p className="text-center text-sm text-slate-600 dark:text-slate-300">
+          No account?{" "}
+          <Link to="/register" className="font-medium text-primary">
+            Register
+          </Link>
         </p>
       </form>
     </div>

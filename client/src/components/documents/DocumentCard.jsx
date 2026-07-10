@@ -6,20 +6,28 @@ const DocumentCard = ({ document, onClick, onShare, onHistory }) => (
     layout
     whileHover={{ y: -2 }}
     onClick={onClick}
-    className="bg-white dark:bg-slate-800 rounded-xl shadow p-4 cursor-pointer flex flex-col gap-2"
+    className="surface-card flex cursor-pointer flex-col gap-3 p-4"
   >
     <div className="flex items-center gap-2 text-primary">
       <FiFileText />
-      <h3 className="font-semibold truncate">{document.title}</h3>
+      <h3 className="truncate font-semibold text-slate-900 dark:text-white">
+        {document.title}
+      </h3>
     </div>
-    <p className="text-xs text-secondary line-clamp-2">
-      {document.content ? document.content.replace(/<[^>]+>/g, "").slice(0, 100) : "Empty document"}
+    <p className="line-clamp-2 text-xs text-slate-500 dark:text-slate-400">
+      {document.content
+        ? document.content.replace(/<[^>]+>/g, "").slice(0, 100)
+        : "Empty document"}
     </p>
-    <div className="flex items-center justify-between mt-2 text-xs text-secondary">
-      <span>{document.lastEditedBy?.name || document.createdBy?.name || "Unknown"}</span>
-      <span>{new Date(document.updatedAt).toLocaleDateString()}</span>
+    <div className="mt-2 flex items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
+      <span className="truncate">
+        {document.lastEditedBy?.name || document.createdBy?.name || "Unknown"}
+      </span>
+      <span className="shrink-0">
+        {new Date(document.updatedAt).toLocaleDateString()}
+      </span>
     </div>
-    <div className="flex gap-3 mt-1">
+    <div className="mt-1 flex flex-wrap gap-3">
       <button
         onClick={(e) => {
           e.stopPropagation();

@@ -26,10 +26,13 @@ const CalendarGrid = ({ currentDate, events, onEventClick, onDayClick }) => {
   });
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow overflow-hidden">
-      <div className="grid grid-cols-7 border-b border-slate-100 dark:border-slate-700">
+    <div className="surface-card overflow-hidden">
+      <div className="grid grid-cols-7 border-b border-slate-200 dark:border-slate-700">
         {WEEKDAYS.map((d) => (
-          <div key={d} className="text-xs font-semibold text-secondary text-center py-2">
+          <div
+            key={d}
+            className="py-2 text-center text-xs font-semibold text-slate-500 dark:text-slate-400"
+          >
             {d}
           </div>
         ))}
@@ -38,26 +41,35 @@ const CalendarGrid = ({ currentDate, events, onEventClick, onDayClick }) => {
         {cells.map((date, i) => {
           const key = date?.toDateString();
           const dayEvents = key ? eventsByDay[key] || [] : [];
-          const isToday = date && date.toDateString() === new Date().toDateString();
+          const isToday =
+            date && date.toDateString() === new Date().toDateString();
 
           return (
             <div
               key={i}
               onClick={() => date && onDayClick?.(date)}
-              className={`min-h-[100px] border-b border-r border-slate-50 dark:border-slate-700 p-1.5 ${
-                date ? "cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50" : "bg-slate-50/40 dark:bg-slate-900/20"
+              className={`min-h-[92px] border-b border-r border-slate-200/70 p-1.5 dark:border-slate-700/70 ${
+                date
+                  ? "cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50"
+                  : "bg-slate-50/40 dark:bg-slate-900/20"
               }`}
             >
               {date && (
                 <>
-                  <span className={`text-xs ${isToday ? "bg-primary text-white rounded-full px-1.5 py-0.5" : "text-secondary"}`}>
+                  <span
+                    className={`inline-flex text-xs ${isToday ? "rounded-full bg-primary px-1.5 py-0.5 text-white" : "text-slate-600 dark:text-slate-300"}`}
+                  >
                     {date.getDate()}
                   </span>
                   <div className="mt-1">
                     {dayEvents.slice(0, 3).map((e) => (
                       <EventCard key={e._id} event={e} onClick={onEventClick} />
                     ))}
-                    {dayEvents.length > 3 && <p className="text-[10px] text-secondary">+{dayEvents.length - 3} more</p>}
+                    {dayEvents.length > 3 && (
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400">
+                        +{dayEvents.length - 3} more
+                      </p>
+                    )}
                   </div>
                 </>
               )}

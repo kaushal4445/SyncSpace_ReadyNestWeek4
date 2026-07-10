@@ -567,15 +567,15 @@ const Chat = () => {
           </div>
         )}
 
-        <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between gap-2">
+        <div className="flex items-center justify-between gap-2 border-b border-slate-100 px-4 py-3 dark:border-slate-700">
           <div className="flex items-center gap-2 min-w-0">
             <button
               onClick={() => setMobileShowChat(false)}
-              className="sm:hidden text-secondary hover:text-primary shrink-0"
+              className="shrink-0 text-slate-600 hover:text-primary sm:hidden dark:text-slate-300"
             >
               <FiArrowLeft size={18} />
             </button>
-            <p className="font-semibold text-sm truncate">
+            <p className="truncate text-sm font-semibold text-slate-900 dark:text-white">
               {activeUser
                 ? activeUser.name
                 : currentWorkspace
@@ -585,14 +585,14 @@ const Chat = () => {
           </div>
           <div className="flex items-center gap-2">
             {searchOpen ? (
-              <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-700 rounded-lg px-2 py-1">
+              <div className="flex items-center gap-2 rounded-lg bg-slate-100 px-2 py-1 dark:bg-slate-700">
                 <FiSearch className="text-secondary" size={14} />
                 <input
                   autoFocus
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search this conversation"
-                  className="bg-transparent outline-none text-xs w-40"
+                  className="w-40 bg-transparent text-xs outline-none"
                 />
                 <button
                   onClick={() => {
@@ -606,7 +606,7 @@ const Chat = () => {
             ) : (
               <button
                 onClick={() => setSearchOpen(true)}
-                className="text-secondary hover:text-primary"
+                className="text-slate-600 hover:text-primary dark:text-slate-300"
               >
                 <FiSearch size={16} />
               </button>
@@ -705,17 +705,17 @@ const Chat = () => {
           </div>
         )}
 
-        <div className="border-t border-slate-100 dark:border-slate-700 p-3 flex items-center gap-2">
+        <div className="sticky bottom-0 flex items-center gap-2 border-t border-slate-100 bg-white/95 p-3 backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/95">
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="text-secondary hover:text-primary"
+            className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-primary dark:text-slate-300 dark:hover:bg-slate-800"
             title="Attach a file"
           >
             <FiPaperclip size={20} />
           </button>
           <button
             onClick={() => setDocPickerOpen(true)}
-            className="text-secondary hover:text-primary"
+            className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-primary disabled:opacity-50 dark:text-slate-300 dark:hover:bg-slate-800"
             title="Share a document"
             disabled={!currentWorkspace || Boolean(activeUser)}
           >
@@ -741,7 +741,7 @@ const Chat = () => {
                 : "Select a conversation first"
             }
             disabled={!activeUser && !currentWorkspace}
-            className="flex-1 bg-slate-100 dark:bg-slate-700 rounded-lg px-3 py-2 text-sm outline-none disabled:opacity-50"
+            className="flex-1 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:opacity-50 dark:border-slate-600 dark:bg-slate-800"
           />
           <EmojiPickerButton
             onSelect={(emoji) => setDraft((prev) => prev + emoji)}
@@ -749,7 +749,7 @@ const Chat = () => {
           <button
             onClick={handleSend}
             disabled={!draft.trim() || (!activeUser && !currentWorkspace)}
-            className="bg-primary text-white rounded-lg p-2 hover:bg-primary-dark disabled:opacity-50"
+            className="rounded-lg bg-primary p-2 text-white hover:bg-primary-dark disabled:opacity-50"
           >
             <FiSend size={18} />
           </button>

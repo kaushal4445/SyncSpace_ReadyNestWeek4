@@ -6,7 +6,11 @@ const Avatar = ({ user, size = 32 }) => (
     style={{ width: size, height: size, fontSize: size * 0.4 }}
   >
     {user?.avatar ? (
-      <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
+      <img
+        src={user.avatar}
+        alt={user.name}
+        className="w-full h-full object-cover"
+      />
     ) : (
       (user?.name || "?").charAt(0).toUpperCase()
     )}
@@ -23,7 +27,7 @@ const ConversationList = ({
   hiddenOnMobile,
 }) => (
   <div
-    className={`w-full sm:w-72 shrink-0 border-r border-slate-100 dark:border-slate-700 flex-col ${
+    className={`w-full shrink-0 border-r border-slate-100 dark:border-slate-700 flex-col sm:w-72 ${
       hiddenOnMobile ? "hidden sm:flex" : "flex"
     }`}
   >
@@ -34,23 +38,31 @@ const ConversationList = ({
           workspaceChannel ? "bg-primary/5" : ""
         }`}
       >
-        <p className="text-sm font-semibold flex items-center gap-1.5">
+        <p className="flex items-center gap-1.5 text-sm font-semibold text-slate-900 dark:text-white">
           <FiHash size={13} /> {workspaceName}
         </p>
-        <p className="text-xs text-secondary">Everyone in this workspace</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400">
+          Everyone in this workspace
+        </p>
       </button>
     ) : (
       <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-700">
-        <p className="text-xs text-secondary">No workspace selected</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400">
+          No workspace selected
+        </p>
       </div>
     )}
 
     <div className="flex-1 overflow-y-auto">
       {conversations.length === 0 ? (
         <div className="flex flex-col items-center justify-center text-center py-10 px-4">
-          <FiMessageCircle className="text-3xl text-secondary mb-2" />
-          <p className="text-sm font-medium">No conversations</p>
-          <p className="text-xs text-secondary mt-1">Start chatting with your teammates.</p>
+          <FiMessageCircle className="mb-2 text-3xl text-slate-500 dark:text-slate-400" />
+          <p className="text-sm font-medium text-slate-900 dark:text-white">
+            No conversations
+          </p>
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+            Start chatting with your teammates.
+          </p>
         </div>
       ) : (
         conversations.map((c) => (
@@ -71,7 +83,9 @@ const ConversationList = ({
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-sm font-medium truncate">{c.user.name}</p>
-              <p className="text-xs text-secondary truncate">{c.lastMessage?.content || "No messages yet"}</p>
+              <p className="truncate text-xs text-slate-500 dark:text-slate-400">
+                {c.lastMessage?.content || "No messages yet"}
+              </p>
             </div>
             {c.unreadCount > 0 && (
               <span className="bg-primary text-white text-[10px] rounded-full h-5 w-5 flex items-center justify-center shrink-0">

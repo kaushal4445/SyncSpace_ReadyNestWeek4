@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiFileText, FiFolder, FiUsers, FiCalendar, FiPlus } from "react-icons/fi";
+import {
+  FiFileText,
+  FiFolder,
+  FiUsers,
+  FiCalendar,
+  FiPlus,
+} from "react-icons/fi";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useWorkspace } from "../context/WorkspaceContext.jsx";
 import { analyticsService } from "../services/analyticsService.js";
@@ -12,18 +18,28 @@ import CreateWorkspaceModal from "../components/workspace/CreateWorkspaceModal.j
 import JoinWorkspaceModal from "../components/workspace/JoinWorkspaceModal.jsx";
 
 const StatCard = ({ label, value, icon }) => (
-  <div className="bg-white dark:bg-slate-800 rounded-xl shadow p-5 flex items-center gap-4">
-    {icon && <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">{icon}</div>}
+  <div className="surface-card flex items-center gap-4 p-5">
+    {icon && (
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+        {icon}
+      </div>
+    )}
     <div className="min-w-0">
-      <p className="text-secondary text-sm">{label}</p>
-      <p className="text-2xl font-bold text-primary">{value}</p>
+      <p className="text-sm text-slate-500 dark:text-slate-400">{label}</p>
+      <p className="text-2xl font-bold text-slate-900 dark:text-white">
+        {value}
+      </p>
     </div>
   </div>
 );
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const { currentWorkspace, workspaces, loading: workspacesLoading } = useWorkspace() || {};
+  const {
+    currentWorkspace,
+    workspaces,
+    loading: workspacesLoading,
+  } = useWorkspace() || {};
   const navigate = useNavigate();
   const [stats, setStats] = useState(null);
   const [recentDocs, setRecentDocs] = useState([]);
@@ -70,7 +86,11 @@ const Dashboard = () => {
       <>
         <EmptyState
           icon={<FiUsers />}
-          title={workspaces?.length ? "No workspace selected" : "Welcome to SyncSpace"}
+          title={
+            workspaces?.length
+              ? "No workspace selected"
+              : "Welcome to SyncSpace"
+          }
           description={
             workspaces?.length
               ? "Pick a workspace from the sidebar switcher to get started."
@@ -78,7 +98,10 @@ const Dashboard = () => {
           }
           action={
             <div className="flex gap-3 justify-center">
-              <Button onClick={() => setCreateOpen(true)} className="flex items-center gap-2">
+              <Button
+                onClick={() => setCreateOpen(true)}
+                className="flex items-center gap-2"
+              >
                 <FiPlus /> Create Workspace
               </Button>
               <Button variant="secondary" onClick={() => setJoinOpen(true)}>
@@ -87,19 +110,33 @@ const Dashboard = () => {
             </div>
           }
         />
-        <CreateWorkspaceModal isOpen={createOpen} onClose={() => setCreateOpen(false)} onCreated={() => navigate("/dashboard")} />
-        <JoinWorkspaceModal isOpen={joinOpen} onClose={() => setJoinOpen(false)} />
+        <CreateWorkspaceModal
+          isOpen={createOpen}
+          onClose={() => setCreateOpen(false)}
+          onCreated={() => navigate("/dashboard")}
+        />
+        <JoinWorkspaceModal
+          isOpen={joinOpen}
+          onClose={() => setJoinOpen(false)}
+        />
       </>
     );
   }
 
   return (
     <div className="p-4 sm:p-6 space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <h1 className="text-2xl font-bold">Welcome back, {user?.name}</h1>
-        <p className="text-sm text-secondary">
-          Workspace: <span className="font-medium text-slate-700 dark:text-slate-200">{currentWorkspace.name}</span>
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
+            Welcome back, {user?.name}
+          </h1>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            Workspace:{" "}
+            <span className="font-medium text-slate-700 dark:text-slate-200">
+              {currentWorkspace.name}
+            </span>
+          </p>
+        </div>
       </div>
 
       {loading ? (
@@ -110,16 +147,32 @@ const Dashboard = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatCard label="Total Documents" value={stats?.totalDocuments ?? 0} icon={<FiFileText />} />
-          <StatCard label="Total Files" value={stats?.totalFiles ?? 0} icon={<FiFolder />} />
-          <StatCard label="Total Meetings" value={stats?.totalMeetings ?? 0} icon={<FiCalendar />} />
-          <StatCard label="Active Members" value={stats?.activeMembers ?? 0} icon={<FiUsers />} />
+          <StatCard
+            label="Total Documents"
+            value={stats?.totalDocuments ?? 0}
+            icon={<FiFileText />}
+          />
+          <StatCard
+            label="Total Files"
+            value={stats?.totalFiles ?? 0}
+            icon={<FiFolder />}
+          />
+          <StatCard
+            label="Total Meetings"
+            value={stats?.totalMeetings ?? 0}
+            icon={<FiCalendar />}
+          />
+          <StatCard
+            label="Active Members"
+            value={stats?.activeMembers ?? 0}
+            icon={<FiUsers />}
+          />
         </div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white dark:bg-slate-800 rounded-xl shadow p-5">
-          <p className="text-sm font-semibold mb-3">Recent Documents</p>
+        <div className="surface-card p-5">
+          <p className="mb-3 text-sm font-semibold">Recent Documents</p>
           {recentDocs.length === 0 ? (
             <p className="text-xs text-secondary">No documents yet.</p>
           ) : (
@@ -131,24 +184,31 @@ const Dashboard = () => {
                   className="flex items-center justify-between text-sm w-full text-left hover:text-primary"
                 >
                   <span className="truncate">{d.title}</span>
-                  <span className="text-xs text-secondary shrink-0 ml-2">{new Date(d.updatedAt).toLocaleDateString()}</span>
+                  <span className="text-xs text-secondary shrink-0 ml-2">
+                    {new Date(d.updatedAt).toLocaleDateString()}
+                  </span>
                 </button>
               ))}
             </div>
           )}
         </div>
 
-        <div className="bg-white dark:bg-slate-800 rounded-xl shadow p-5">
-          <p className="text-sm font-semibold mb-3">Team Members</p>
+        <div className="surface-card p-5">
+          <p className="mb-3 text-sm font-semibold">Team Members</p>
           {currentWorkspace.members?.length ? (
             <div className="space-y-2">
               {currentWorkspace.members.slice(0, 6).map((m) => (
-                <div key={m.user?._id} className="flex items-center gap-2 text-sm">
+                <div
+                  key={m.user?._id}
+                  className="flex items-center gap-2 text-sm"
+                >
                   <div className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-semibold">
                     {m.user?.name?.[0]?.toUpperCase() || "?"}
                   </div>
                   <span className="truncate">{m.user?.name}</span>
-                  <span className="text-xs text-secondary ml-auto capitalize">{m.role}</span>
+                  <span className="text-xs text-secondary ml-auto capitalize">
+                    {m.role}
+                  </span>
                 </div>
               ))}
             </div>

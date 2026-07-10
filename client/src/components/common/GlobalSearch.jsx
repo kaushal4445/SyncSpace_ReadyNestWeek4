@@ -77,8 +77,8 @@ const GlobalSearch = () => {
   };
 
   return (
-    <div className="relative w-full max-w-md">
-      <div className="flex items-center gap-2 text-secondary bg-slate-100 dark:bg-slate-700 rounded-lg px-3 py-1.5">
+    <div className="relative w-full max-w-xl">
+      <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2 text-slate-600 shadow-sm dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-300">
         <FiSearch className="shrink-0" />
         <input
           type="text"
@@ -90,12 +90,12 @@ const GlobalSearch = () => {
           onFocus={() => setIsOpen(true)}
           onBlur={() => setTimeout(() => setIsOpen(false), 150)}
           placeholder="Search users, workspaces, files..."
-          className="bg-transparent outline-none text-sm w-full"
+          className="w-full bg-transparent text-sm outline-none"
         />
       </div>
 
       {isOpen && query.trim().length >= 2 && (
-        <div className="absolute left-0 mt-2 w-[calc(100vw-2rem)] sm:w-96 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 z-50 max-h-96 overflow-y-auto">
+        <div className="absolute left-0 z-50 mt-2 max-h-96 w-[calc(100vw-1rem)] overflow-y-auto rounded-xl border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-800 sm:w-96">
           {loading && (
             <div className="p-4 text-sm text-secondary">Searching...</div>
           )}

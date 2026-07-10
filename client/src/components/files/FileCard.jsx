@@ -1,4 +1,13 @@
-import { FiFile, FiImage, FiFileText, FiVideo, FiDownload, FiTrash2, FiArchive, FiEye } from "react-icons/fi";
+import {
+  FiFile,
+  FiImage,
+  FiFileText,
+  FiVideo,
+  FiDownload,
+  FiTrash2,
+  FiArchive,
+  FiEye,
+} from "react-icons/fi";
 
 const iconFor = (fileType) => {
   switch (fileType) {
@@ -22,12 +31,17 @@ const formatSize = (bytes) => {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 };
 
-const isPreviewable = (fileType) => ["image", "pdf", "video"].includes(fileType);
+const isPreviewable = (fileType) =>
+  ["image", "pdf", "video"].includes(fileType);
 
 const FileCard = ({ file, onDelete }) => (
-  <div className="bg-white dark:bg-slate-800 rounded-xl shadow p-4 flex flex-col gap-2 hover:shadow-md transition-shadow">
+  <div className="surface-card flex flex-col gap-2 p-4 transition-shadow hover:shadow-md">
     {file.fileType === "image" ? (
-      <img src={file.url} alt={file.originalName} className="h-28 w-full object-cover rounded-lg" />
+      <img
+        src={file.url}
+        alt={file.originalName}
+        className="h-28 w-full object-cover rounded-lg"
+      />
     ) : (
       <div className="h-28 flex items-center justify-center text-4xl text-primary bg-slate-50 dark:bg-slate-700 rounded-lg">
         {iconFor(file.fileType)}
@@ -58,7 +72,10 @@ const FileCard = ({ file, onDelete }) => (
       >
         <FiDownload /> Download
       </a>
-      <button onClick={() => onDelete?.(file)} className="text-xs flex items-center gap-1 text-secondary hover:text-red-500">
+      <button
+        onClick={() => onDelete?.(file)}
+        className="text-xs flex items-center gap-1 text-secondary hover:text-red-500"
+      >
         <FiTrash2 /> Delete
       </button>
     </div>
