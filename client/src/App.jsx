@@ -5,7 +5,7 @@ import Register from "./pages/Register.jsx";
 import DashboardLayout from "./layouts/DashboardLayout.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import Skeleton from "./components/ui/Skeleton.jsx";
-
+import Landing from "./pages/Landing";
 // Everything behind the authenticated shell is code-split so the initial
 // bundle (login/register) stays small and each module is only downloaded
 // when the user actually navigates to it.
@@ -32,7 +32,7 @@ function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-
+<Route path="/" element={<Landing />} />
       <Route
         element={
           <ProtectedRoute>
